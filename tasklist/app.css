@@ -1,0 +1,8 @@
+/* Modal */
+.modal {
+    width: 400px;
+}
+
+/* li */
+.collection-item a {cursor: pointer;}
+/* .collection-item i {pointer-events: none;} */
