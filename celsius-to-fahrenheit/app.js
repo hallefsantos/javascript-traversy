@@ -2,6 +2,9 @@
 const celsiusInput = document.getElementById('celsius');
 const fahrenheitInput = document.getElementById('fahrenheit');
 const btnClear = document.getElementById('btn-clear');
+const linkModal = document.getElementById('link-modal');
+const modalDialog = document.querySelector('.nes-dialog');
+const btnDialog = document.querySelector('.btn-dialog');
 
 // Defalut values
 defaultInputs();
@@ -14,6 +17,8 @@ function loadEventListeners(){
    celsiusInput.addEventListener('keyup', calcToFahrenheit);
    fahrenheitInput.addEventListener('keyup', calcToCelsius);
    btnClear.addEventListener('click', defaultInputs);
+   linkModal.addEventListener('click', modal);
+   btnDialog.addEventListener('click', modal);
 }
 
 function calcToFahrenheit(e){
@@ -70,4 +75,18 @@ function clearError(){
  function defaultInputs(){
    celsiusInput.value = 0;
    fahrenheitInput.value = 32;
+ }
+
+ function modal(){
+
+   if(modalDialog.classList.contains('active')){
+      document.body.classList.remove('dialog-active');
+      modalDialog.classList.remove('active');
+      console.log(true);
+   } else {
+      document.body.classList.add('dialog-active');
+      modalDialog.classList.add('active');
+      console.log(modalDialog);
+   }
+
  }
