@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+
+   <style>
+
+      body {
+         text-align: center;
+         background-color: #212121;
+      }
+      #lamp {
+         position: relative;
+         max-width: 400px;
+         margin: 0 auto;
+      }
+
+      #lamp img {
+         width: 400px;
+         transition: all 1s ease-in;
+      }
+      #lamp-on {
+         position: absolute;
+         left: 0;
+         top: 0;
+         opacity: 0;
+      }
+
+      #lamp.active #lamp-on{opacity: 1;}
+      #lamp.active #lamp-off{opacity: 0;}
+
+      .buttons{
+         margin-top: 25px;
+      }
+   </style>
+</head>
+<body>
+   <div id="lamp">
+      <img src="img/lamp-off.png" id="lamp-off" alt="Lamp OFF">
+      <img src="img/lamp-on.png" id="lamp-on" alt="Lamp ON">
+   </div>
+   <div class="buttons">
+      <button id="btn-on" class="btn">Turn ON</button>
+      <button id="btn-off" class="btn">Turn OFF</button>
+   </div>
+
+   <script src="app.js"></script>
+</body>
+</html>
