@@ -30,6 +30,11 @@ UI.prototype.addBookToList = function(book) {
 UI.prototype.deleteBook = function(target){
    if(target.className === 'delete'){
       target.parentElement.parentElement.remove();
+
+      Storage.deleteBook(target.parentElement.previousElementSibling.textContent);
+      const ui = new UI();
+      // console.log(target.parentElement.previousElementSibling.textContent);
+      ui.showAlert('Book removed!', 'green');
    }
 }
 
@@ -67,7 +72,53 @@ UI.prototype.showAlert = function(message, className){
    // console.log(div);
 }
 
+// Store Class
+function Storage() {}
+
+Storage.getBooks = function (){
+   let books;
+   if(localStorage.getItem('books') === null) {
+      books = [];
+   } else {
+      books = JSON.parse(localStorage.getItem('books'));
+   }
+
+   return books;
+}
+Storage.displayBooks = function (){
+   const books = Storage.getBooks();
+   const ui = new UI();
+
+   books.forEach(book => {
+      ui.addBookToList(book);
+   });
+
+}
+
+Storage.addBook = function (book){
+   const books = Storage.getBooks();
+   books.push(book);
+   localStorage.setItem('books', JSON.stringify(books));
+   // console.log(book);
+}
+
+Storage.deleteBook = function (isbn){
+   const books = Storage.getBooks();
+   // console.log(isbn);
+   books.forEach((book, index) => {
+      if(book.isbn === isbn) {
+         books.splice(index, 1);
+      };
+      // console.log(books);
+   });
+
+   localStorage.setItem('books', JSON.stringify(books));
+}
+
+
+
 // Event Listeners
+document.addEventListener('DOMContentLoaded', Storage.displayBooks);
 document.getElementById('book-form').addEventListener('submit',
 function(e){
 
@@ -93,6 +144,8 @@ function(e){
       // Add book to list
       ui.addBookToList(book);
 
+      Storage.addBook(book);
+
       ui.showAlert('Book added!', 'green');
 
       // Clear fields
@@ -105,7 +158,7 @@ document.getElementById('book-list').addEventListener('click', function(e){
 
    const ui = new UI();
    ui.deleteBook(e.target);
-   ui.showAlert('Book removed!', 'green');
 
    e.preventDefault(e);
+
 });
