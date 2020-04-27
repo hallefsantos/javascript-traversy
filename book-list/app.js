@@ -9,7 +9,7 @@ function Book(title, author, isbn){
 function UI() {}
 
 UI.prototype.addBookToList = function(book) {
-   console.log(book);
+   // console.log(book);
 
    const list = document.getElementById('book-list');
    // create tr element
@@ -23,7 +23,7 @@ UI.prototype.addBookToList = function(book) {
    `;
 
    list.appendChild(row);
-   console.log(row);
+   // console.log(row);
 }
 
 UI.prototype.clearFields = function(){
@@ -32,9 +32,38 @@ UI.prototype.clearFields = function(){
    isbn = document.getElementById('isbn').value = '';
 }
 
+// Show Alert
+UI.prototype.showAlert = function(message, className){
+   // Create div
+   const div = document.createElement('div');
+   // Add classes
+   div.className = `alert card-panel ${className}`;
+   // Add Text
+   // div.textContent = message;
+   div.appendChild(document.createTextNode(message));
+
+   // Get parent
+   const cardContent = document.querySelector('.card-content');
+
+   // Get form
+   const form = document.getElementById('book-form');
+
+   // Insert alert
+   cardContent.insertBefore(div, form);
+
+   // Timeout after 3 sec
+   setTimeout(() => {
+      document.querySelector('.alert').remove();
+   }, 4000);
+
+   // console.log(div);
+}
+
 // Event Listeners
 document.getElementById('book-form').addEventListener('submit',
 function(e){
+
+   e.preventDefault();
 
    // get form values
    const title = document.getElementById('title').value,
@@ -47,12 +76,19 @@ function(e){
    // Instantiate UI
    const ui = new UI();
 
-   // Add book to list
-   ui.addBookToList(book);
+   // Validate
+   if(title === '' || author === '' || isbn === '') {
+      // Error Alert 
+      ui.showAlert('Please fill in all fiels', 'red');
+   
+   } else {
+      // Add book to list
+      ui.addBookToList(book);
 
-   // Clear fields
-   ui.clearFields();
+      ui.showAlert('Book added!', 'green');
 
-   // console.log(book);
-   e.preventDefault();
+      // Clear fields
+      ui.clearFields();
+   }
 });
+
