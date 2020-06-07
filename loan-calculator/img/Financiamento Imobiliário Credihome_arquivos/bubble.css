@@ -1,0 +1,184 @@
+﻿:root {
+    --first-color:#6369d2;
+    --second-color:#ffffff;
+    --third-color:#8f9299;
+    --animation-duration: 0.3s;
+}
+
+g#close {
+    fill: var(--second-color);
+}
+
+#blip-chat-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+#bubble-container {
+    overflow-x: hidden;
+    position: absolute;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-left: 15px;
+    right: 75px;
+    bottom: 25px;
+    width: 320px;
+}
+
+#message-bubble {
+    display: flex;
+    margin-right: 8px;
+    cursor: pointer;
+    animation: BubbleLoad var(--animation-duration) forwards;
+}
+
+#message-bubble.hide {
+    animation: BubbleUnload var(--animation-duration) forwards;
+    display: none;
+}
+
+#message-bubble > #message {
+    display: flex;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1),
+                0 2px 32px rgba(0, 0, 0, 0.1);
+    color: var(--third-color);
+    background-color: var(--second-color);
+    border-radius: 5px;
+}
+
+#message-bubble > #triangle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30px;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+#message-bubble > #triangle::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: var(--second-color);
+    transform: rotate(45deg);
+    right: 28px;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1),
+                0 2px 32px rgba(0, 0, 0, 0.1);
+}
+
+#blip-chat-icon > img {
+    transition: var(--animation-duration) !important;
+    height: 100% !important;
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#blip-chat-icon > img.top {
+    opacity: 1;
+}
+
+#blip-chat-icon > img.bottom {
+    opacity: 0;
+}
+
+#blip-chat-open-iframe:hover > #blip-chat-icon > img.top {
+    opacity: 0;
+}
+
+#blip-chat-open-iframe:hover > #blip-chat-icon > img.bottom {
+    opacity: 1;
+}
+
+#blip-chat-close-icon.display {
+    animation: CloseIconDisplay var(--animation-duration) forwards;
+}
+
+#blip-chat-close-icon.hide {
+    animation: CloseIconHide var(--animation-duration) forwards;
+}
+
+@media (max-width: 900px) {
+        #bubble-container {
+            display: flex;
+        }
+        #message-bubble {
+            position: fixed;
+            right: 74px;
+            bottom: 20px;
+            width: 195px;
+        }
+        #message-bubble > #message {
+            font-size: 14px;
+            font-weight: normal;
+        }
+        #message-bubble > #triangle::after {
+            right: 18px;
+        }
+    }
+
+/* Keyframes */
+
+@keyframes CloseIconDisplay {
+    0%{
+        transform: rotate(45deg);
+        opacity: 0;
+    }
+    100%{
+        transform: rotate(90deg);
+        opacity: 1;
+    }
+}
+
+@keyframes CloseIconHide {
+    0%{
+        transform: rotate(90deg);
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        transform: rotate(45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes BubbleLoad {
+    0%{
+        opacity: 0;
+        margin-right: -250px;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        margin-right: 8px;
+    }
+}
+
+@keyframes BubbleUnload {
+    0%{
+        opacity: 1;
+        margin-right: 8px;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+        margin-right: -250px;
+    }
+}
+
+/*500x500*/

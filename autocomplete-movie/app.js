@@ -7,7 +7,8 @@ matchList.addEventListener('click', moreInfos);
 
 // Search movies.json and filter it
 const searchStates = async searchText => {
-   const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=ab872c8346e93a873401a241a30f8c44&query=${searchText}&include_adult=false`);
+   const apiKey = 'ab872c8346e93a873401a241a30f8c44'; 
+   const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchText}&include_adult=false`);
 
    const movies = await res.json();
 

@@ -1,0 +1,16 @@
+.card-body p{
+   margin-bottom: 0;
+   margin-right: 35px;
+}
+
+.delete, .edit {
+   position: absolute;
+   right: 35px;
+   top: 50%;
+   transform: translateY(-50%);
+}
+
+.delete {
+   color: red;
+   right: 10px;
+}
